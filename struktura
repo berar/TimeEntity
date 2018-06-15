@@ -1,0 +1,8 @@
+Abstract
+Uvod (Sustina je init stanje, finalno stanje i dogadjaji tj. pojedinacne promene stanja nad poljima ili "parcijalnim objektima".)
+Predstava problema ( Sustinski problem je upravljanje vremenom u OOP koji prakticno resava funkcionalno programiranje, ali se nudi resenje takvo da je to moguce i za drugacije programerske paradigme. )
+Definicija StateChain strukture podataka sp? (matematicka teorijska definicija i objsanjenja)
+O java implementaciji (detalji implementacije i izvodi koda sa objasnjenjima)
+Jednostavna predstava bitcoina (Može se posmatrati da svki novi blok mora praviti promenu u sistemu. Blok je bilo koja proizvoljna struktura. Promena u bloku, tj. dodavanje novog bloka u lanac blokova, se može odnositi na neko svojstvo identiteta ili na neki drugi objekat koji je deo sistema. Ako se radi o identitetu kao bloku I promeni se neka vrednost atributa tog identiteta, onda se kaže da je ta vrednost atributa trenutno stanje tog identiteta. Što znači da je poslednja vrednost nekog atributa za dati identitet trenutno stanje.)
+Zaključak – daljnja nadogradnja, sledeci koraci sql implementacija, limit nedostatak je sto je finalState mutabilan deo objekta tako da se mogu menjati vrednosti na koje referencira itd.
+Literatura
