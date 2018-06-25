@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 public class TimeEntity<T, S> {
 
@@ -27,7 +28,17 @@ public class TimeEntity<T, S> {
         this.finalState = this.initialState;
     }
 
-    public T at(LocalDateTime localDateTime) { return null; }
+    public T at(LocalDateTime localDateTime) {
+        List<TimeEntityEvent<S>> earlierStateTransitions = this.stateTransitions.stream()
+                .filter(s -> s.getTimeStamp().isBefore(localDateTime))
+                .collect(Collectors.toList());
+
+        TimeEntity<T, S> resultTimeEntity = new TimeEntity<>(initialState);
+        earlierStateTransitions.forEach(t -> resultTimeEntity.apply(t.getEvent()));
+        return resultTimeEntity.finalState;
+    }
+
+    // when
 
     // equals preko identity
 

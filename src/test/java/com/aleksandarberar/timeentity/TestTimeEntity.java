@@ -3,6 +3,8 @@ package com.aleksandarberar.timeentity;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
+
 public class TestTimeEntity {
 
     public static class Person {
@@ -50,11 +52,46 @@ public class TestTimeEntity {
     @Test
     public void testWithReflectionSimple() {
         Person initialState = new Person("1", "Aca", 28);
-        TimeEntity<Person, Person> someone = new TimeEntity<>(initialState);
+        TimeEntity<Person, Person> timeEntity = new TimeEntity<>(initialState);
 
         Person change = new Person(null, null, 29);
-        someone.apply(change);
+        timeEntity.apply(change);
 
-        Assert.assertEquals(new Person("1", "Aca", 29), someone.getFinalState());
+        Assert.assertEquals(new Person("1", "Aca", 29), timeEntity.getFinalState());
+    }
+
+    @Test
+    public void testWithTransitionFunction() {
+        Person initialState = new Person("1", "Aca", 28);
+        TimeEntity<Person, Person> timeEntity = new TimeEntity<>(initialState, (a,b) -> {
+            Person eventPerson = a.getEvent();
+            b.age = eventPerson.age;
+            b.id = eventPerson.id == null ? b.id : eventPerson.id;
+            b.name = eventPerson.name == null ? b.name : eventPerson.name;
+            return b;
+        });
+
+        Person change = new Person(null, null, 29);
+        timeEntity.apply(change);
+
+        Assert.assertEquals(new Person("1", "Aca", 29), timeEntity.getFinalState());
+    }
+
+    @Test
+    public void testAtMethod() throws Exception {
+
+        Person initialState = new Person("1", "Aca", 28);
+        TimeEntity<Person, Person> timeEntity = new TimeEntity<>(initialState);
+
+        Person change = new Person(null, null, 29);
+        Thread.sleep(100);
+        timeEntity.apply(change);
+        LocalDateTime testDateTime = LocalDateTime.now();
+
+        Thread.sleep(100);
+        Person _2ndChange = new Person(null, null, 30);
+        timeEntity.apply(_2ndChange);
+
+        Assert.assertEquals(new Person("1", "Aca", 29), timeEntity.at(testDateTime));
     }
 }
