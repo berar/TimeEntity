@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.BiFunction;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class TimeEntity<T, S> {
@@ -38,11 +39,23 @@ public class TimeEntity<T, S> {
         return resultTimeEntity.finalState;
     }
 
-    // when
+    public Optional<LocalDateTime> when(S event) {
+        return this.stateTransitions.stream()
+                .filter(s -> s.getEvent().equals(event))
+                .findFirst()
+                .map(a -> a.getTimeStamp());
+    }
 
     // equals preko identity
 
     // equals finalState metod
+
+    // create interface or abstract class and factory method
+
+    // in introduction, note that this is a raw implementation with no further dependencies, except junit which is a standard development dependency for unit testing.
+    // uml diagrams
+    // implementation chapters, should be subsections per unit test or per method of the interface
+    // further work, 1) the "who" aspect, possible methods, creationUser, lastModifier. 2) database design for event sourcing
 
     public T getFinalState() {
         return this.finalState;
