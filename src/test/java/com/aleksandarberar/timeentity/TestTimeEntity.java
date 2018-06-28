@@ -138,4 +138,14 @@ public class TestTimeEntity {
 
         Assert.assertTrue(!timeEntity.when(new Person("Montenegro", null, 35)).isPresent());
     }
+
+    @Test
+    public void testEqualsMethod() throws Exception {
+
+        Person initialState = new Person("Serbia", "Aca", 28);
+        TimeEntity<Person, Person> timeEntity = new TimeEntity<>(initialState);
+        TimeEntity<Person, Person> timeEntity2nd = new TimeEntity<>(initialState);
+
+        Assert.assertTrue(!timeEntity.equals(timeEntity2nd));
+    }
 }
