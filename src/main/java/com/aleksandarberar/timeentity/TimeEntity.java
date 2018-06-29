@@ -97,14 +97,9 @@ public class TimeEntity<T, S> {
         return identity != null ? identity.hashCode() : 0;
     }
 
-    // equals finalState metod
-
-    // create interface or abstract class and factory method
-
-    // in introduction, note that this is a raw implementation with no further dependencies, except junit which is a standard development dependency for unit testing.
-    // uml diagrams
-    // implementation chapters, should be subsections per unit test or per method of the interface
-    // further work, 1) the "who" aspect, possible methods, creationUser, lastModifier. 2) database design for event sourcing
+    public boolean equalFinalState(TimeEntity<T, S> other) {
+        return this.finalState.equals(other.finalState);
+    }
 
     public T getFinalState() {
         return this.finalState;

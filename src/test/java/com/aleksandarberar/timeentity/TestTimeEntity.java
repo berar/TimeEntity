@@ -87,8 +87,8 @@ public class TestTimeEntity {
         TimeEntity<Person, Person> timeEntity = new TimeEntity<>(initialState);
 
         Person change = new Person("Montenegro", null, 29);
-        Thread.sleep(100);
         timeEntity.apply(change);
+        Thread.sleep(100);
         LocalDateTime testDateTime = LocalDateTime.now();
 
         Thread.sleep(100);
@@ -147,5 +147,31 @@ public class TestTimeEntity {
         TimeEntity<Person, Person> timeEntity2nd = new TimeEntity<>(initialState);
 
         Assert.assertTrue(!timeEntity.equals(timeEntity2nd));
+    }
+
+    @Test
+    public void testEqualFinalStateWhenTheyShouldBe() throws Exception {
+
+        Person initialState = new Person("Serbia", "Aca", 28);
+        TimeEntity<Person, Person> timeEntity = new TimeEntity<>(initialState);
+
+        Person initialState2nd = new Person("Serbia", "Aca", 27);
+        TimeEntity<Person, Person> timeEntity2nd = new TimeEntity<>(initialState2nd);
+        timeEntity2nd.apply(new Person(null, null, 28));
+
+        Assert.assertTrue(timeEntity.equalFinalState(timeEntity2nd));
+    }
+
+    @Test
+    public void testEqualFinalStateWhenTheyShouldNotBe() throws Exception {
+
+        Person initialState = new Person("Serbia", "Aca", 28);
+        TimeEntity<Person, Person> timeEntity = new TimeEntity<>(initialState);
+
+        Person initialState2nd = new Person("Serbia", "Aca", 27);
+        TimeEntity<Person, Person> timeEntity2nd = new TimeEntity<>(initialState2nd);
+        timeEntity2nd.apply(new Person(null, null, 29));
+
+        Assert.assertTrue(!timeEntity.equalFinalState(timeEntity2nd));
     }
 }
