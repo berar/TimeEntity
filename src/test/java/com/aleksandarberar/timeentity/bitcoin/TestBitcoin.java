@@ -59,13 +59,18 @@ public class TestBitcoin {
                 new BitcoinTransaction(
                         new BitcoinAddress("14J5Q7ageKhM3miKd94DX44Kf6b7ko4BZe"),
                         new BitcoinAddress("1GoC1B4GWdbnwzpCFNxqDb2zSL9UzQnwrW"),
+                        new BigDecimal("10.0")),
+                
+                new BitcoinTransaction(
+                        new BitcoinAddress("1FfmbHfnpaZjKFvyi1okTjJJusN455paPH"),
+                        new BitcoinAddress("1GoC1B4GWdbnwzpCFNxqDb2zSL9UzQnwrW"),
                         new BigDecimal("10.0")));
         bitcoinLedgerTimeEntity.apply(change2nd);
 
         Assert.assertTrue(
-                bitcoinLedgerTimeEntity.getFinalState().getBalance("1FfmbHfnpaZjKFvyi1okTjJJusN455paPH").toPlainString().equals("109.0")
+                bitcoinLedgerTimeEntity.getFinalState().getBalance("1FfmbHfnpaZjKFvyi1okTjJJusN455paPH").toPlainString().equals("99.0")
                         && bitcoinLedgerTimeEntity.getFinalState().getBalance("14J5Q7ageKhM3miKd94DX44Kf6b7ko4BZe").toPlainString().equals("141.0")
-                        && bitcoinLedgerTimeEntity.getFinalState().getBalance("1GoC1B4GWdbnwzpCFNxqDb2zSL9UzQnwrW").toPlainString().equals("260.0")
+                        && bitcoinLedgerTimeEntity.getFinalState().getBalance("1GoC1B4GWdbnwzpCFNxqDb2zSL9UzQnwrW").toPlainString().equals("270.0")
         );
     }
 }
