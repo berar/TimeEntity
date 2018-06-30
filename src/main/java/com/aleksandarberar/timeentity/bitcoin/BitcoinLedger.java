@@ -11,4 +11,16 @@ public class BitcoinLedger {
     public BitcoinLedger() {
         this.map = new HashMap<>();
     }
+
+    public BitcoinLedger(Map<BitcoinAddress, BigDecimal> map) {
+        this.map = map;
+    }
+
+    public BigDecimal getBalance(String address) {
+        return this.getBalance(new BitcoinAddress(address));
+    }
+
+    public BigDecimal getBalance(BitcoinAddress bitcoinAddress) {
+        return this.map.get(bitcoinAddress);
+    }
 }
